@@ -23,13 +23,15 @@ async function start() {
 function addElement(data) {
     document.getElementById("list").innerHTML += (
         `
-        <div class = "list-item">
-            <img src="${data.thumbnail.path + "." + data.thumbnail.extension}" alt="Avatar">
-            <div class="container">
-                <h4><b>${data.name}</b></h4>
-                <p>${data.description}</p>
+        <a href="./index2.html?id=${data.id}">
+            <div class = "list-item">
+                <img src="${data.thumbnail.path + "." + data.thumbnail.extension}" alt="Avatar">
+                <div class="container">
+                    <h4><b>${data.name}</b></h4>
+                    <p>${data.description}</p>
+                </div>
             </div>
-        </div>
+        </a>
         `
     );
 }
