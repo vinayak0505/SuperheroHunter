@@ -5,6 +5,7 @@ img {
 }
 
 .list-item {
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     width: 250px;
@@ -30,4 +31,20 @@ img {
 p {
     max-height: 40px;
     overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* search */
+#search {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    width: 500px;
+    height: 40px;
 }

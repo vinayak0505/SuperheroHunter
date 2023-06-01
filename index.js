@@ -4,7 +4,7 @@ async function getKey() {
     return key;
 }
 
-// start();
+start();
 async function start() {
     try {
         // var key = await getKey();
@@ -43,6 +43,9 @@ function setScreenToLoading() {
     `;
 }
 
+function search(s) {
+    
+}
 
 function getTempData() {
     return {
