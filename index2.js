@@ -21,6 +21,9 @@ function setData(data) {
     document.getElementById('title').innerHTML = data.name;
     document.getElementById('description').innerHTML = data.description;
     document.getElementById('image').src = data.thumbnail.path + '.'+ data.thumbnail.extension;
+    document.getElementById('bg-image').style.backgroundImage = 
+    `url(${data.thumbnail.path + '.'+ data.thumbnail.extension})`;
+    // background-image: url('./marvel.webp');
     addSections(data, "comics");
     addSections(data, "series");
     addSections(data, "stories");
