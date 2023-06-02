@@ -13,11 +13,15 @@ function sleep(milliseconds){
 async function start(value) {
     try {
         setScreenToLoading();
-        await sleep(1000);
-        // var key = await getKey();
-        // const response = await fetch(`https://gateway.marvel.com:443/v1/public/characters?apikey=22e3e37654e8e2e4aa6243fa7f5ff6a0&hash=${key}`);
-        // const jsonData = await response.json();
-        const jsonData = getTempData();
+        // await sleep(1000);
+        var key = await getKey();
+        var response
+        if(value)
+        response = await fetch(`https://gateway.marvel.com:443/v1/public/characters?apikey=22e3e37654e8e2e4aa6243fa7f5ff6a0&hash=${key}&nameStartsWith=${value}`);
+        else
+        response = await fetch(`https://gateway.marvel.com:443/v1/public/characters?apikey=22e3e37654e8e2e4aa6243fa7f5ff6a0&hash=${key}`);
+        const jsonData = await response.json();
+        // const jsonData = getTempData();
         console.log(jsonData);
         clearScreen();
         for (var i in jsonData.data.results) {
@@ -48,7 +52,7 @@ function clearScreen() {
 }
 function setScreenToLoading() {
     document.getElementById("list").innerHTML = `
-    <img src="https://i.pinimg.com/originals/26/b3/08/26b3080c60c07902d0adf6caf2d671b4.gif"></img>
+    <img id = "loading" src="./loading.gif"></img>
     `;
 }
 

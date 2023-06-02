@@ -9,10 +9,10 @@ async function getKey() {
 
 start();
 async function start() {
-    // var key = await getKey();
-    // var response = await fetch(`https://gateway.marvel.com:443/v1/public/characters/${myParam}?apikey=22e3e37654e8e2e4aa6243fa7f5ff6a0&hash=${key}`);
-    // const jsonData = await response.json();
-    const jsonData = getData();
+    var key = await getKey();
+    var response = await fetch(`https://gateway.marvel.com:443/v1/public/characters/${myParam}?apikey=22e3e37654e8e2e4aa6243fa7f5ff6a0&hash=${key}`);
+    const jsonData = await response.json();
+    // const jsonData = getData();
     console.log(jsonData);
     setData(jsonData.data.results[0]);
 }

@@ -8,7 +8,10 @@ body {
 }
 
 img {
-    width: 300px;
+    align-self: self-start;
+    width: 400px;
+    height: auto;
+    object-fit: contain;
 }
 
 #intro {
