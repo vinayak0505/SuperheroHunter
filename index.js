@@ -5,14 +5,21 @@ async function getKey() {
 }
 
 start();
-async function start() {
+function sleep(milliseconds){
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
+}
+async function start(value) {
     try {
+        setScreenToLoading();
+        await sleep(1000);
         // var key = await getKey();
         // const response = await fetch(`https://gateway.marvel.com:443/v1/public/characters?apikey=22e3e37654e8e2e4aa6243fa7f5ff6a0&hash=${key}`);
         // const jsonData = await response.json();
         const jsonData = getTempData();
         console.log(jsonData);
-
+        clearScreen();
         for (var i in jsonData.data.results) {
             addElement(jsonData.data.results[i]);
         }
@@ -45,8 +52,19 @@ function setScreenToLoading() {
     `;
 }
 
-function search(s) {
-    
+let timer;
+function debounce(func, args, timeout = 1000) {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.call(this, args); }, timeout);
+}
+
+document.getElementById('search').addEventListener('input', (events) => {
+    debounce(search, events);
+});
+
+
+function search(events) {
+    start(document.getElementById('search').value);
 }
 
 function getTempData() {
