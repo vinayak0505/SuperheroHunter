@@ -6,6 +6,7 @@ img {
     width: 250px;
     height: 180px;
     object-fit: cover;
+    border-radius: 4px 4px 0px 0px ;
 }
 
 #loading {
@@ -40,7 +41,7 @@ img {
 }
 
 p {
-    height: 40px;
+    height: calc(2em + 4px);
     overflow: hidden;
 }
 
