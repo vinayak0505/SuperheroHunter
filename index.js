@@ -1,6 +1,5 @@
 var items = [];
 var listData = [];
-
 async function getKey() {
     var key = await md5(Math.floor(Date.now() / 1000) + "28257c71de0ea96da933ca450efc4b009c35fed8" + "22e3e37654e8e2e4aa6243fa7f5ff6a0");
     console.log(key);
@@ -28,7 +27,8 @@ async function start(value) {
         listData = jsonData.data.results;
         loadData(jsonData);
     } catch (error) {
-        document.getElementById("test").innerHTML = "error";
+        console.log(error);
+        document.getElementById("list").innerHTML = "error";
     }
 }
 
@@ -61,8 +61,13 @@ function addElement(data) {
 
 function changeFav(e, id) {
     e.stopPropagation();
-    var item = listData.find((e) => e.id == id)
-    addItem(item);
+    var val = items.find((e) => e.id == id);
+    if (val) {
+        deleteItem(id);
+    } else {
+        addItem(id);
+    }
+
     loadData();
     return false;
 }
@@ -91,11 +96,17 @@ function search(events) {
     start(document.getElementById('search').value);
 }
 
-function addItem(data) {
-    items.push(data);
+function addItem(id) {
+    var item = listData.find((e) => e.id == id)
+    items.push(item);
+    localStorage.setItem("data", JSON.stringify(items));
+}
+
+function deleteItem(id) {
+    items = items.filter(e => e.id != id);
     localStorage.setItem("data", JSON.stringify(items));
 }
 
 function getItems() {
-    items = JSON.parse(localStorage.getItem("data"));
+    items = JSON.parse(localStorage.getItem("data")) ?? [];
 }
