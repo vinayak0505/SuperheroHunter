@@ -4,7 +4,6 @@ start();
 async function start() {
     try {
         getItems();
-        console.log(items);
         for (var i in items) {
             addElement(items[i]);
         }
@@ -15,16 +14,15 @@ async function start() {
 }
 
 function addElement(data) {
-    console.log(data);
     document.getElementById("list").innerHTML += (
         `
-        <button type="button" onclick="location.href='../index2.html?id=${data.id}'">
+        <button type="button" onclick="location.href='../details/index2.html?id=${data.id}'">
             <div class = "list-item">
                 <img src="${data.thumbnail.path + "." + data.thumbnail.extension}" alt="Avatar">
                 <div class="container">
                     <h4><b>${data.name}</b>
                     <img class ="fav-img" onclick="event.cancelBubble = true; changeFav(event,${data.id})"
-                    src='../heart_selected.png'>
+                    src='../assets/heart_selected.png'>
                     </h4>
                     <p>${data.description}</p>
                 </div>
@@ -42,10 +40,7 @@ function changeFav(e, id) {
 }
 
 function deleteItem(id) {
-    console.log(id);
-    console.log(items);
     items = items.filter(e => e.id != id);
-    console.log(items);
     localStorage.setItem("data", JSON.stringify(items));
 }
 

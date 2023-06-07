@@ -22,7 +22,7 @@ img {
     height: 100%;
     filter: blur(20px) opacity(0.5);
     background-size: cover;
-    background-image: url('./marvel.webp');
+    background-image: url('../assets/marvel.webp');
 }
 
 #intro {
