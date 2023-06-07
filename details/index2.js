@@ -14,6 +14,8 @@ async function start() {
     setData(jsonData.data.results[0]);
 }
 
+
+// displays all the detail data
 function setData(data) {
     document.getElementById('title').innerHTML = data.name;
     document.getElementById('description').innerHTML = data.description;
@@ -27,6 +29,7 @@ function setData(data) {
     addSections(data, "events");
 }
 
+// addes new section if available
 function addSections(data, name) {
     if (data[name].available == 0) return;
     document.getElementById('about-section').innerHTML +=
@@ -40,6 +43,7 @@ function addSections(data, name) {
     addItems(data[name].items, name);
 }
 
+// addes items to the list inside a section
 function addItems(data, name) {
     for (var i in data) {
         var item = data[i].name.split('#')[0];

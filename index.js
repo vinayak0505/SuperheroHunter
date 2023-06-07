@@ -1,20 +1,20 @@
-var items = [];
-var listData = [];
+// items that saved in fav
+var favItems = [];
+
+// all items the came back from marvel api
+var resultItems = [];
+
+start();
+
+// get md5 key to pass in marvel api
 async function getKey() {
     var key = await md5(Math.floor(Date.now() / 1000) + "28257c71de0ea96da933ca450efc4b009c35fed8" + "22e3e37654e8e2e4aa6243fa7f5ff6a0");
     return key;
 }
 
-getItems();
-start();
-
-function sleep(milliseconds) {
-    return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
-    });
-}
 async function start(value) {
     try {
+        getItems();
         setScreenToLoading();
         var key = await getKey();
         var response;
@@ -23,7 +23,7 @@ async function start(value) {
         else
             response = await fetch(`https://gateway.marvel.com:443/v1/public/characters?apikey=22e3e37654e8e2e4aa6243fa7f5ff6a0&hash=${key}`);
         const jsonData = await response.json();
-        listData = jsonData.data.results;
+        resultItems = jsonData.data.results;
         loadData(jsonData);
     } catch (error) {
         console.log(error);
@@ -33,13 +33,23 @@ async function start(value) {
 
 function loadData() {
     clearScreen();
-    for (var i in listData) {
-        addElement(listData[i]);
+    for (var i in resultItems) {
+        addElement(resultItems[i]);
     }
 }
 
+function clearScreen() {
+    document.getElementById("list").innerHTML = "";
+}
+
+function setScreenToLoading() {
+    document.getElementById("list").innerHTML = `
+    <img id = "loading" src="./assets/loading.gif"></img>
+    `;
+}
+
 function addElement(data) {
-    var has = items.some(item => item.id === data.id);
+    var has = favItems.some(item => item.id === data.id);
     document.getElementById("list").innerHTML += (
         `
         <button type="button" onclick="location.href='./details/index2.html?id=${data.id}'">
@@ -58,29 +68,8 @@ function addElement(data) {
     );
 }
 
-function changeFav(e, id) {
-    e.stopPropagation();
-    var val = items.find((e) => e.id == id);
-    if (val) {
-        deleteItem(id);
-    } else {
-        addItem(id);
-    }
-
-    loadData();
-    return false;
-}
-
-function clearScreen() {
-    document.getElementById("list").innerHTML = "";
-}
-function setScreenToLoading() {
-    document.getElementById("list").innerHTML = `
-    <img id = "loading" src="./assets/loading.gif"></img>
-    `;
-}
-
 let timer;
+// debouncer made so that the api is not hit every time the input changes
 function debounce(func, args, timeout = 1000) {
     clearTimeout(timer);
     timer = setTimeout(() => { func.call(this, args); }, timeout);
@@ -95,17 +84,39 @@ function search(events) {
     start(document.getElementById('search').value);
 }
 
+/**
+ * 
+ * @param {Event} e event e to stop click even to propagrate further
+ * @param {Integer} id item id that need to be toggle from fav
+ * @returns void
+ */
+function changeFav(e, id) {
+    e.stopPropagation();
+    var val = favItems.find((e) => e.id == id);
+    if (val) {
+        deleteItem(id);
+    } else {
+        addItem(id);
+    }
+
+    loadData();
+    return false;
+}
+
+// addes item with the given id
 function addItem(id) {
-    var item = listData.find((e) => e.id == id)
-    items.push(item);
-    localStorage.setItem("data", JSON.stringify(items));
+    var item = resultItems.find((e) => e.id == id)
+    favItems.push(item);
+    localStorage.setItem("data", JSON.stringify(favItems));
 }
 
+// deletes item with the given id
 function deleteItem(id) {
-    items = items.filter(e => e.id != id);
-    localStorage.setItem("data", JSON.stringify(items));
+    favItems = favItems.filter(e => e.id != id);
+    localStorage.setItem("data", JSON.stringify(favItems));
 }
 
+// get all fav items store in local storage
 function getItems() {
-    items = JSON.parse(localStorage.getItem("data")) ?? [];
+    favItems = JSON.parse(localStorage.getItem("data")) ?? [];
 }

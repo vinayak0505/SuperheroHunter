@@ -14,6 +14,7 @@ img {
     height: max-content;
 }
 
+/* items inside the list  */
 .list-item {
     background-color: white;
     border-radius: 5px;
@@ -28,6 +29,7 @@ img {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* how to list are alligned */
 #list {
     padding: 20px;
     display: flex;
@@ -36,15 +38,18 @@ img {
     justify-content: space-evenly;
 }
 
+/* items card */
 .container {
     padding: 0px 20px;
 }
 
+/* details */
 p {
     height: calc(2em + 4px);
     overflow: hidden;
 }
 
+/* bg image to add effect in background */
 #bg-image {
     z-index: -1;
     position: fixed;
@@ -75,16 +80,19 @@ body {
     height: 40px;
 }
 
+/* fav on inside navigation */
 #fav {
     width: 28px;
     height: 28px;
 }
 
+/* fav image size insize card */
 .fav-img {
     width: 20px;
     height: 20px;
 }
 
+/* all buttons */
 button {
     border: none;
     padding: 0;

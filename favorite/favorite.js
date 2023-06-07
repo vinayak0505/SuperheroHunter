@@ -1,6 +1,7 @@
+// fav items from local storage
 var items = [];
 start();
-
+// loads data first time from the local storage
 async function start() {
     try {
         getItems();
@@ -13,6 +14,10 @@ async function start() {
     }
 }
 
+/**
+ * 
+ * @param {*} data fav item data that need to be displayed 
+ */
 function addElement(data) {
     document.getElementById("list").innerHTML += (
         `
@@ -32,6 +37,7 @@ function addElement(data) {
     );
 }
 
+// update fav items in list and screen
 function changeFav(e, id) {
     e.stopPropagation();
     deleteItem(id);
@@ -39,16 +45,18 @@ function changeFav(e, id) {
     return false;
 }
 
+// delete fav item from localStorage
 function deleteItem(id) {
     items = items.filter(e => e.id != id);
     localStorage.setItem("data", JSON.stringify(items));
 }
 
-
+// gets item from local storage
 function getItems() {
     items = JSON.parse(localStorage.getItem("data")) ?? [];
 }
 
+// reloads item when after list is updaed
 function loadData() {
     clearScreen();
     for (var i in items) {
@@ -56,6 +64,7 @@ function loadData() {
     }
 }
 
+// empty the list items screen
 function clearScreen() {
     document.getElementById("list").innerHTML = "";
 }
